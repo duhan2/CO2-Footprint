@@ -49,7 +49,54 @@
                 <li class="list-group-item"><a href="#">lokaler link 3</a></li>
             </ul>
         </div>
-        <p><a href="/gpt.html">GPT Vorschlag</a></p>
+
+        <div class="col-md-3">
+            <h2>CO2-Emissionen nach Land und Unternehmen</h2>
+            <input type="text" id="search" class="form-control mb-3" placeholder="Suchen...">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th onclick="sortTable(0)">Land</th>
+                        <th onclick="sortTable(1)">Unternehmen</th>
+                        <th onclick="sortTable(2)">CO2-Emissionen (Tonnen)</th>
+                    </tr>
+                </thead>
+                <tbody id="data-table">
+                    <tr>
+                        <td>Deutschland</td>
+                        <td>Covestro</td>
+                        <td>1.000.000</td>
+                    </tr>
+                    <tr>
+                        <td>Deutschland</td>
+                        <td>Bayer</td>
+                        <td>1.200.000</td>
+                    </tr>
+                    <tr>
+                        <td>USA</td>
+                        <td>Covestro</td>
+                        <td>2.000.000</td>
+                    </tr>
+                    <tr>
+                        <td>USA</td>
+                        <td>Bayer</td>
+                        <td>2.200.000</td>
+                    </tr>
+                    <tr>
+                        <td>China</td>
+                        <td>Covestro</td>
+                        <td>5.000.000</td>
+                    </tr>
+                    <tr>
+                        <td>China</td>
+                        <td>Bayer</td>
+                        <td>5.000.000</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- <p><a href="/gpt.html">GPT Vorschlag</a></p> -->
     </div>
 
     <!-- Footer -->
@@ -60,7 +107,7 @@
     <!-- Einbindung von Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
-    </script>
+        </script>
 
 
 </body>
