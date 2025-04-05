@@ -17,7 +17,7 @@
 
 <body>
     <!-- Titel und Logo -->
-    <header class="fixed-top text-bg-primary d-flex align-items-center py-3 flex-wrap">
+    <header class="text-bg-primary d-flex align-items-center py-3 flex-wrap">
         <img src="/images/android-chrome-512x512.png" alt="Logo" class="img-fluid me-3 ms-3" style="max-width: 100px;">
         <h1 class="flex-grow-1 text-center text-md-start">CO2-Footprint</h1>
     </header>
@@ -41,78 +41,77 @@
     </nav>
 
     <!-- Content -->
-    <div class="container-fluid mt-3 ms-3">
-        <div class="row" dir="auto">
-            <ul class="list-group col-auto" id="änderbare-liste">
+    <div class="container mt-3">
+        <div class="container" dir="auto">
+            <ul class="list-group">
                 <li class="list-group-item"><a href="#">lokaler link 1</a></li>
                 <li class="list-group-item"><a href="#">lokaler link 2</a></li>
                 <li class="list-group-item"><a href="#">lokaler link 3</a></li>
             </ul>
         </div>
 
-        <div class="col-md-3">
-            <h2>CO2-Emissionen nach Land und Unternehmen</h2>
-            <input type="text" id="search" class="form-control mb-3" placeholder="Suchen...">
-            <div class="table-responsive">
-                <table class="table table-striped table-hover table-bordered">
-                    <thead>
-                        <tr>
-                            <th scope="col" onclick="sortTable(0)">Land</th>
-                            <th scope="col" onclick="sortTable(1)">Unternehmen</th>
-                            <th scope="col" onclick="sortTable(2)">CO2-Emissionen (Tonnen)</th>
-                        </tr>
-                    </thead>
-                    <tbody id="data-table">
-                        <tr>
-                            <td>Deutschland</td>
-                            <td>Covestro</td>
-                            <td>1.000.000</td>
-                        </tr>
-                        <tr>
-                            <td>Deutschland</td>
-                            <td>Bayer</td>
-                            <td>1.200.000</td>
-                        </tr>
-                        <tr>
-                            <td>Deutschland</td>
-                            <td>Henkel</td>
-                            <td>1.400.000</td>
-                        </tr>
-                        <tr>
-                            <td>USA</td>
-                            <td>Covestro</td>
-                            <td>2.000.000</td>
-                        </tr>
-                        <tr>
-                            <td>USA</td>
-                            <td>Bayer</td>
-                            <td>2.200.000</td>
-                        </tr>
-                        <tr>
-                            <td>USA</td>
-                            <td>Venator</td>
-                            <td>2.500.000</td>
-                        </tr>
-                        <tr>
-                            <td>China</td>
-                            <td>Covestro</td>
-                            <td>3.000.000</td>
-                        </tr>
-                        <tr>
-                            <td>China</td>
-                            <td>Bayer</td>
-                            <td>3.200.000</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <p>Die Tabelle zeigt die CO2-Emissionen von Unternehmen in verschiedenen Ländern. Klicken Sie auf die
-                Spaltenüberschriften, um die Tabelle zu sortieren.</p>
+        <h2>CO2-Emissionen nach Land und Unternehmen</h2>
+        <input type="text" id="search" class="form-control mb-3" placeholder="Suchen...">
+        <div class="table-responsive" style="overflow-x:auto;">
+            <table class="table table-striped table-hover table-bordered" style="table-layout: fixed; width: 100%;">
+                <thead>
+                    <tr>
+                        <th scope="col" onclick="sortTable(0)">Land</th>
+                        <th scope="col" onclick="sortTable(1)">Unternehmen</th>
+                        <th scope="col" onclick="sortTable(2)">CO2-Emissionen (Tonnen)</th>
+                    </tr>
+                </thead>
+                <tbody id="data-table">
+                    <tr>
+                        <td>Deutschland</td>
+                        <td>Covestro</td>
+                        <td>1000000</td>
+                    </tr>
+                    <tr>
+                        <td>Deutschland</td>
+                        <td>Bayer</td>
+                        <td>1200000</td>
+                    </tr>
+                    <tr>
+                        <td>Deutschland</td>
+                        <td>Henkel</td>
+                        <td>1400000</td>
+                    </tr>
+                    <tr>
+                        <td>USA</td>
+                        <td>Covestro</td>
+                        <td>2000000</td>
+                    </tr>
+                    <tr>
+                        <td>USA</td>
+                        <td>Bayer</td>
+                        <td>2200000</td>
+                    </tr>
+                    <tr>
+                        <td>USA</td>
+                        <td>Venator</td>
+                        <td>2500000</td>
+                    </tr>
+                    <tr>
+                        <td>China</td>
+                        <td>Covestro</td>
+                        <td>3000000</td>
+                    </tr>
+                    <tr>
+                        <td>China</td>
+                        <td>Bayer</td>
+                        <td>3200000</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
+        <p>Die Tabelle zeigt die CO2-Emissionen von Unternehmen in verschiedenen Ländern. Klicken Sie auf die
+            Spaltenüberschriften, um die Tabelle zu sortieren.</p>
+
     </div>
 
     <!-- Footer -->
-    <footer class="fixed-bottom text-bg-primary text-center py-3 mt-3">
+    <footer class="text-bg-primary text-center py-3 mt-3">
         <p>&copy; 2025 CO2-Tracker | Impressum | Datenschutz</p>
     </footer>
 
@@ -134,13 +133,41 @@
 
                 if (columnIndex === 2) { // Sort by CO2 emissions (numeric)
                     return parseFloat(cellA.replace(/,/g, '')) > parseFloat(cellB.replace(/,/g, '')) ? 1 : -1;
-                } else {
+                } else { // Sort by country or company (alphabetical)
+                    // Normalize the strings to lowercase for case-insensitive comparison
                     return cellA.localeCompare(cellB, undefined, { sensitivity: 'base' });
                 }
             });
             rows.slice(1).forEach(row => table.appendChild(row)); // Append sorted rows back to the table body
         }
+        console.log()
     </script>
+
+    <script>
+        const searchInput = document.getElementById("search");
+        searchInput.addEventListener("input", function () {
+            const filter = searchInput.value.toLowerCase();
+            const rows = document.querySelectorAll("#data-table tr");
+
+            rows.forEach(row => {
+                const cells = row.getElementsByTagName("td");
+                let found = false;
+                for (let i = 0; i < cells.length; i++) {
+                    const cellText = cells[i].innerText;
+                    if (cellText.toLowerCase().includes(filter)) {
+                        found = true;
+                        break;
+                    }
+                }
+                if (found) {
+                    row.style.display = "table-row";
+                } else {
+                    row.style.display = "none";
+                }
+            });
+        });
+    </script>
+
 
     <!-- Einbindung von Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
