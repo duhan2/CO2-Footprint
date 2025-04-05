@@ -17,9 +17,9 @@
 
 <body>
     <!-- Titel und Logo -->
-    <header class="text-bg-primary d-flex align-items-center py-3 flex-wrap">
+    <header class="fixed-top text-bg-primary d-flex align-items-center py-3 flex-wrap">
         <img src="/images/android-chrome-512x512.png" alt="Logo" class="img-fluid me-3 ms-3" style="max-width: 100px;">
-        <h1 class="mb-0 flex-grow-1 text-center text-md-start">CO2-Footprint</h1>
+        <h1 class="flex-grow-1 text-center text-md-start">CO2-Footprint</h1>
     </header>
 
     <!-- Navigation -->
@@ -33,8 +33,8 @@
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav">
                     <a class="nav-link active" aria-current="page" href="/index.html">Home</a>
-                    <a class="nav-link" href="#">Seite 1</a>
-                    <a class="nav-link" href="#">Seite 2</a>
+                    <a class="nav-link" href="/html/länder.html">Länder</a>
+                    <a class="nav-link" href="/html/unternehmen.html">Unternehmen</a>
                 </div>
             </div>
         </div>
@@ -53,56 +53,94 @@
         <div class="col-md-3">
             <h2>CO2-Emissionen nach Land und Unternehmen</h2>
             <input type="text" id="search" class="form-control mb-3" placeholder="Suchen...">
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th onclick="sortTable(0)">Land</th>
-                        <th onclick="sortTable(1)">Unternehmen</th>
-                        <th onclick="sortTable(2)">CO2-Emissionen (Tonnen)</th>
-                    </tr>
-                </thead>
-                <tbody id="data-table">
-                    <tr>
-                        <td>Deutschland</td>
-                        <td>Covestro</td>
-                        <td>1.000.000</td>
-                    </tr>
-                    <tr>
-                        <td>Deutschland</td>
-                        <td>Bayer</td>
-                        <td>1.200.000</td>
-                    </tr>
-                    <tr>
-                        <td>USA</td>
-                        <td>Covestro</td>
-                        <td>2.000.000</td>
-                    </tr>
-                    <tr>
-                        <td>USA</td>
-                        <td>Bayer</td>
-                        <td>2.200.000</td>
-                    </tr>
-                    <tr>
-                        <td>China</td>
-                        <td>Covestro</td>
-                        <td>5.000.000</td>
-                    </tr>
-                    <tr>
-                        <td>China</td>
-                        <td>Bayer</td>
-                        <td>5.000.000</td>
-                    </tr>
-                </tbody>
-            </table>
+            <div class="table-responsive">
+                <table class="table table-striped table-hover table-bordered">
+                    <thead>
+                        <tr>
+                            <th scope="col" onclick="sortTable(0)">Land</th>
+                            <th scope="col" onclick="sortTable(1)">Unternehmen</th>
+                            <th scope="col" onclick="sortTable(2)">CO2-Emissionen (Tonnen)</th>
+                        </tr>
+                    </thead>
+                    <tbody id="data-table">
+                        <tr>
+                            <td>Deutschland</td>
+                            <td>Covestro</td>
+                            <td>1.000.000</td>
+                        </tr>
+                        <tr>
+                            <td>Deutschland</td>
+                            <td>Bayer</td>
+                            <td>1.200.000</td>
+                        </tr>
+                        <tr>
+                            <td>Deutschland</td>
+                            <td>Henkel</td>
+                            <td>1.400.000</td>
+                        </tr>
+                        <tr>
+                            <td>USA</td>
+                            <td>Covestro</td>
+                            <td>2.000.000</td>
+                        </tr>
+                        <tr>
+                            <td>USA</td>
+                            <td>Bayer</td>
+                            <td>2.200.000</td>
+                        </tr>
+                        <tr>
+                            <td>USA</td>
+                            <td>Venator</td>
+                            <td>2.500.000</td>
+                        </tr>
+                        <tr>
+                            <td>China</td>
+                            <td>Covestro</td>
+                            <td>3.000.000</td>
+                        </tr>
+                        <tr>
+                            <td>China</td>
+                            <td>Bayer</td>
+                            <td>3.200.000</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p>Die Tabelle zeigt die CO2-Emissionen von Unternehmen in verschiedenen Ländern. Klicken Sie auf die
+                Spaltenüberschriften, um die Tabelle zu sortieren.</p>
         </div>
-
-        <!-- <p><a href="/gpt.html">GPT Vorschlag</a></p> -->
     </div>
 
     <!-- Footer -->
     <footer class="fixed-bottom text-bg-primary text-center py-3 mt-3">
         <p>&copy; 2025 CO2-Tracker | Impressum | Datenschutz</p>
     </footer>
+
+    <script>
+        /**
+         * Sorts the rows of the data table based on the specified column index.
+         * @param {number} columnIndex - The index of the column to sort by (0-based).
+         * If the column index is 2, the function performs numeric sorting for CO2 emissions.
+         * Otherwise, it performs alphabetical sorting.
+         */
+        function sortTable(columnIndex) {
+            let table = document.getElementById("data-table");
+            let rows = Array.from(table.rows); // Convert HTMLCollection to an array
+            if (columnIndex === 2) { } // Sort by the third column (CO2 emissions in numeric format)
+
+            rows.sort((a, b) => {
+                let cellA = a.cells[columnIndex].innerText;
+                let cellB = b.cells[columnIndex].innerText;
+
+                if (columnIndex === 2) { // Sort by CO2 emissions (numeric)
+                    return parseFloat(cellA.replace(/,/g, '')) > parseFloat(cellB.replace(/,/g, '')) ? 1 : -1;
+                } else {
+                    return cellA.localeCompare(cellB, undefined, { sensitivity: 'base' });
+                }
+            });
+            rows.slice(1).forEach(row => table.appendChild(row)); // Append sorted rows back to the table body
+        }
+    </script>
 
     <!-- Einbindung von Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
