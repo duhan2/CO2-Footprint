@@ -22,7 +22,6 @@
             <img src="/images/android-chrome-512x512.png" alt="Logo" class="img-fluid px-2" style="max-width: 50px;">
             <span class="fs-4">CO2-Footprint</span>
         </a>
-
         <ul class="nav nav-pills">
             <li class="nav-item"><a href="/index.html" class="nav-link active" aria-current="page">Home</a></li>
             <li class="nav-item"><a href="/html/länder.html" class="nav-link">Länder</a></li>
@@ -119,31 +118,20 @@
     </div>
 
     <script>
-        /**
-         * Sorts the rows of the data table based on the specified column index.
-         * @param {number} columnIndex - The index of the column to sort by (0-based).
-         * If the column index is 2, the function performs numeric sorting for CO2 emissions.
-         * Otherwise, it performs alphabetical sorting.
-         */
         function sortTable(columnIndex) {
             let table = document.getElementById("data-table");
-            let rows = Array.from(table.rows); // Convert HTMLCollection to an array
-            if (columnIndex === 2) { } // Sort by the third column (CO2 emissions in numeric format)
-
+            let rows = Array.from(table.rows);
             rows.sort((a, b) => {
                 let cellA = a.cells[columnIndex].innerText;
                 let cellB = b.cells[columnIndex].innerText;
-
-                if (columnIndex === 2) { // Sort by CO2 emissions (numeric)
+                if (columnIndex === 2) {
                     return parseFloat(cellA.replace(/,/g, '')) > parseFloat(cellB.replace(/,/g, '')) ? 1 : -1;
-                } else { // Sort by country or company (alphabetical)
-                    // Normalize the strings to lowercase for case-insensitive comparison
+                } else {
                     return cellA.localeCompare(cellB, undefined, { sensitivity: 'base' });
                 }
             });
-            rows.slice(1).forEach(row => table.appendChild(row)); // Append sorted rows back to the table body
+            rows.slice(1).forEach(row => table.appendChild(row));
         }
-        console.log()
     </script>
 
     <script>
